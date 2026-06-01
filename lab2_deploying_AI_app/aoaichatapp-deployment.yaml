@@ -1,23 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  creationTimestamp: null
   labels:
     app: aoaichatapp
   name: aoaichatapp
-  namespace: azureai
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: aoaichatapp
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: aoaichatapp
     spec:
       containers:
-      - image: mycontainerregistry66js.azurecr.io/aoaichatapp:latest
+      - image: $ACR_NAME.azurecr.io/aoaichatapp:latest
         name: aoaichatapp
         ports:
         - containerPort: 80
-        resources: {}
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+status: {}
