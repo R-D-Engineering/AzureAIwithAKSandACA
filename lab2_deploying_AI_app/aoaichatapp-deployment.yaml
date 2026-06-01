@@ -17,6 +17,16 @@ spec:
       labels:
         app: aoaichatapp
     spec:
+      affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+             - key: app
+               operator: In
+               values:
+               - aoaichatapp
+          topologyKey: kubernetes.io/hostname
       containers:
       - image: mycontainerregistry66js.azurecr.io/aoaichatapp:latest
         name: aoaichatapp
