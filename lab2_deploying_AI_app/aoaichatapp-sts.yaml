@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: aoaichatapp
+  namespace: azureai
+spec:
+  serviceName: "aoaichatapp-headless"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aoaichatapp
+  template:
+    metadata:
+      labels:
+        app: aoaichatapp
+    spec:
+      containers:
+      - name: aoaichatapp
+        image: mycontainerregistry66js.azurecr.io/aoaichatapp:latest
+        ports:
+        - containerPort: 80
