@@ -18,7 +18,7 @@ spec:
         app: aoaichatapp
     spec:
       containers:
-      - image: $ACR_NAME.azurecr.io/aoaichatapp:latest
+      - image: mycontainerregistry66js.azurecr.io/aoaichatapp:latest
         name: aoaichatapp
         ports:
         - containerPort: 80
