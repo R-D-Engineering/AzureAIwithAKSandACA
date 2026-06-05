@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: aoaichatapp
+  name: aoaichatapp
+  namespace: azureai  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aoaichatapp
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: aoaichatapp
+    spec:
+      affinity:
+       podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+             - key: app
+               operator: In
+               values:
+               - aoaichatapp
+          topologyKey: kubernetes.io/hostname
+
+      containers:
+      - image: mycontainerregistry66js.azurecr.io/aoaichatapp:latest
+        name: aoaichatapp
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+status: {}

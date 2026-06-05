@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-app-loadbalancer
+  labels:
+    app: rag-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: rag-app # This matches the labels in your StatefulSet template
+  ports:
+    - protocol: TCP
+      port: 80         # The port exposed on the external LoadBalancer IP
+      targetPort: 80   # The containerPort of your chat-frontend container

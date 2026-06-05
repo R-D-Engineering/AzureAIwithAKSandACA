@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  AZURE_API_KEY: ESeZBZE2IoBpgnUo0V3tkbK24FkurRMfOSI8JpeN0mATgVHnEovNJQQJ99CFACHYHv6XJ3w3AAAAACOGqEcQ
+  AZURE_API_URL: https://aveng-mpv7kopm-eastus2.openai.azure.com/openai/deployments/gpt-4o-anoop/chat/completions?api-version=2025-01-01-preview
+  AZURE_MODEL_NAME: gpt-4o-anoop
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2026-06-03T14:42:34Z"
+  name: chatbackend-configs
+  namespace: azureai2
+  resourceVersion: "1621455"
+  uid: 27f5e5cb-33bc-4eb3-8c25-5f489a22d3a3

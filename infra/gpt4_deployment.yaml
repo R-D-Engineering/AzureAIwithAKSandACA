@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: gpt4-deployment
+  namespace: azureai2  
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1  
+  selector:
+    matchLabels:
+      app: aoaichatapp
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: aoaichatapp
+    spec:
+      containers:
+      - image: mycontainerregistry66js.azurecr.io/aoaichatapp:v1
+        name: aoaichatapp
+        ports:
+        - containerPort: 5000

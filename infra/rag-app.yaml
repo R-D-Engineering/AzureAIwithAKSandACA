@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rag-app
+spec:
+  serviceName: "rag-app-loadbalancer"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rag-app
+  template:
+    metadata:
+      labels:
+        app: rag-app
+    spec:
+      containers:
+        - name: qdrant
+          image: qdrant/qdrant:latest
+          ports:
+            - containerPort: 6333
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          volumeMounts:
+            - name: qdrant-storage
+              mountPath: /qdrant/storage
+              subPathExpr: $(HOSTNAME)
+
+        - name: vector-loader
+          image: mycontainerregistry66js.azurecr.io/vector-loader
+          ports:
+            - containerPort: 5173
+          envFrom:
+            - configMapRef:
+                name: vectorloader-config
+
+        - name: chat-backend
+          image: mycontainerregistry66js.azurecr.io/chat-backend
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: chatbackend-configs
+
+        - name: chat-frontend
+          image: mycontainerregistry66js.azurecr.io/chat-frontend
+          ports:
+            - containerPort: 80
+
+      volumes:
+        - name: qdrant-storage
+          persistentVolumeClaim:
+            claimName: qdrant-pvc

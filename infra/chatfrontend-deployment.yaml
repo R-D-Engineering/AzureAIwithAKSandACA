@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatfrontend
+  namespace: azureai2  
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: chatfrontend
+  template:
+    metadata:
+      labels:
+        app: chatfrontend
+    spec:
+      affinity: 
+       podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+             - key: app
+               operator: In
+               values:
+               - chatfrontend
+          topologyKey: kubernetes.io/hostname
+      containers:
+        - name: chatfrontend
+          image: mycontainerregistry66js.azurecr.io/chatfrontend:latest
+          ports:
+            - containerPort: 80

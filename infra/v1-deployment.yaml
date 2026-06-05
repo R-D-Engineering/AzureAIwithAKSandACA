@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azureopenaichat-v1
+  namespace: azureopenai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azureopenaichat
+  template:
+    metadata:
+      labels:
+        app: azureopenaichat
+        version: v1
+    spec:
+      containers:
+        - name: azureopenaichat-v1
+          image: mycontainerregistry66js.azurecr.io/canarydeploymentapplication:latest
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: chatbackend-configs-v1

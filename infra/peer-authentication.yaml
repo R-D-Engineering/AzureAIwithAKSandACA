@@ -1,0 +1,8 @@
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: azureopenai-mtls
+  namespace: azureopenai
+spec:
+  mtls:
+    mode: STRICT

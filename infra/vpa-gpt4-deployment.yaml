@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gpt4-deployment
+  namespace: azureai2  
+  labels:
+    app: aoaichatapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aoaichatapp
+  template:
+    metadata:
+      labels:
+        app: aoaichatapp
+    spec:
+      containers:
+      - name: aoaichatapp
+        image: mycontainerregistry66js.azurecr.io/aoaichatapp:latest
+        ports:
+        - containerPort: 5000
+        # No resources section so VPA will fill them in automatically
+        resources: {}

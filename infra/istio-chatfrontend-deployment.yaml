@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatfrontend
+  namespace: azureopenai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: chatfrontend
+  template:
+    metadata:
+      labels:
+        app: chatfrontend
+    spec:
+      containers:
+        - name: chatfrontend
+          image: mycontainerregistry66js.azurecr.io/chatfrontend:latest
+          ports:
+            - containerPort: 80

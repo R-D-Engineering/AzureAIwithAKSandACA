@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aoaichatapp-svc
+  namespace: azureai
+spec:
+  type: LoadBalancer
+  selector:
+    app: aoaichatapp
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
